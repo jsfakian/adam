@@ -13,11 +13,11 @@ SERVER_URL=https://$SERVER
 # no need to change this if you are using the default location.
 EDEN_CERTS=~/.eden/certs
 # change this to the location of your eden binary
-EDEN_BIN=~/shah-dev/eden/eden
+EDEN_BIN=~/Documents/src/eden/eden
 # change this to the location of your eve configuration
-EVE_CONFIG=~/shah-dev/eve/conf
+EVE_CONFIG=~/Documents/src/eve/conf
 # change this to the serial number of your EVE device
-EVE_SERIAL="shahshah"
+EVE_SERIAL="33415926"
 
 STORE=run/adam
 CERTS=run/certs
@@ -45,10 +45,13 @@ ln -s $EDEN_BIN eden
 rm -rf $EDEN_CERTS
 ./eden utils certs --domain $DOMAIN
 cp -r $EDEN_CERTS run/
+cp /home/jsfakian/Documents/src/eden/dist/default-certs/v2tlsbaseroot-certificates.pem $CERTS
 
 # copy root certificate to eve
 rm -f $EVE_CONFIG/root-certificate.pem
+rm -f $EVE_CONFIG/v2tlsbaseroot-certificates.pem
 cp $CERTS/root-certificate.pem $EVE_CONFIG/
+cp $CERTS/v2tlsbaseroot-certificates.pem $EVE_CONFIG/
 
 add_device &
 # run Aadam, and wait for eve to connect
